@@ -4,7 +4,20 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        brand: {
+          300: '#996DFF',
+          500: '#8257e6'
+        }
+      },
+      borderRadius: {
+        md: '4px'
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+    require('@tailwindcss/forms')
+  ],
 }

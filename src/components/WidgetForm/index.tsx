@@ -1,10 +1,9 @@
-import { CloseButton } from "../CloseButton"
-
 import BugSvg from '../../assets/bug.svg'
 import IdeaSvg from '../../assets/idea.svg'
 import ThoughtSvg from '../../assets/thought.svg'
 import { useState } from "react"
 import { FeedbackTypeStep } from "./Steps/FeedbackTypeStep"
+import { FeedbackContentStep } from './Steps/FeedbackContentStep'
 
 export const feedbackOptions = {
     BUG: {
@@ -25,18 +24,19 @@ export type FeedbackType = keyof typeof feedbackOptions
 
 export const WidgetForm = () => {
     const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null)
+    const [screenshoot, setScreenshot] = useState<string | null>(null)
+
+    const handleRestartFeedback = () => {
+        setFeedbackType(null)
+    }
 
     return (
-        <div className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex items-center flex-col shadow-lg w-[calc(100vw-2rem)] md:w-auto">
-            <header>
-                <span className="text-xl leading-6">Deixe seu feedback</span>
-                <CloseButton />
-            </header>
+        <div className="bg-zinc-900 px-8 py-4 relative rounded-2xl mb-4 flex items-center flex-col shadow-lg w-[calc(100vw-2rem)] md:w-auto">
 
             {!feedbackType ? (
-                <FeedbackTypeStep onclick={setFeedbackType} />
+                <FeedbackTypeStep setFeedbackType={setFeedbackType} />
             ) : (
-                <h1>Hello World</h1>
+                <FeedbackContentStep handleRestartFeed={handleRestartFeedback} type={feedbackType} />
             )}
 
             <footer className="text-xs text-neutral-400">
