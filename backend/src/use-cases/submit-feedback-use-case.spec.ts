@@ -13,7 +13,7 @@ describe('submit feedback', () => {
         await expect(submitFeedback.execute({
             feedbackType: 'BUG',
             comment: 'example sample text',
-            screenshot: 'data:image/png;base64, dg712gdib21d8177'
+            screenshot: 'data:image/png;base64'
         })).resolves.not.toThrow();
 
         expect(createFeedbackSpy).toHaveBeenCalled()
@@ -24,7 +24,7 @@ describe('submit feedback', () => {
         await expect(submitFeedback.execute({
             feedbackType: '',
             comment: 'example sample text',
-            screenshot: 'data:image/png;base64, dg712gdib21d8177'
+            screenshot: 'data:image/png;base64'
         })).rejects.toThrow();
     })
 
@@ -32,7 +32,7 @@ describe('submit feedback', () => {
         await expect(submitFeedback.execute({
             feedbackType: 'BUG',
             comment: '',
-            screenshot: 'data:image/png;base64, dg712gdib21d8177'
+            screenshot: 'data:image/png;base64'
         })).rejects.toThrow();
     })
 
