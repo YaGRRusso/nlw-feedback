@@ -1,7 +1,9 @@
 import { ArrowLeft } from "phosphor-react"
 import { FormEvent, useState } from "react"
 import { feedbackOptions, FeedbackType } from ".."
+import { api } from "../../../lib/api"
 import { CloseButton } from "../../CloseButton"
+import { Loading } from "../../Loading"
 import { ScreenshotButton } from "../ScreenshotButton"
 
 type ThisProps = {
@@ -14,13 +16,17 @@ export const FeedbackContentStep = ({ type, handleRestartFeed, onFeedbackSent }:
     const feedbackTypeInfo = feedbackOptions[type];
     const [screenshoot, setScreenshot] = useState<string | null>(null);
     const [feedbackComment, setFeedbackComment] = useState('');
+    const [isSendingFeedback, setIsSendingFeedback] = useState(false)
 
-    const handleSubmitFeedback = (ev: FormEvent) => {
+    const handleSubmitFeedback = async (ev: FormEvent) => {
         ev.preventDefault()
 
-        console.log('Screenshot: ', screenshoot)
-        console.log('Comment: ', feedbackComment)
-
+        setIsSendingFeedback(true)
+        await api.post('/feedbacks', {
+            feedbackType: type,
+            comment: feedbackComment,
+            screenshot: screenshoot
+        })
         onFeedbackSent()
     }
 
@@ -50,10 +56,10 @@ export const FeedbackContentStep = ({ type, handleRestartFeed, onFeedbackSent }:
                     />
                     <button
                         type="submit"
-                        disabled={feedbackComment.length === 0}
+                        disabled={feedbackComment.length === 0 || isSendingFeedback}
                         className="p-2 bg-brand-500 rounded-md border-transparent flex-1 flex justify-center items-center text-sm hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500 transition-colors disabled:opacity-50 disabled:hover:bg-brand-500"
                     >
-                        Enviar feedback
+                        {isSendingFeedback ? <Loading /> : 'Enviar feedback'}
                     </button>
                 </footer>
             </form>

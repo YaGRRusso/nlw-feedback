@@ -24,7 +24,7 @@ export const ScreenshotButton = ({ screenshotImg, onScreenshotTook }: ThisProps)
         return (
             <button
                 type="button"
-                onClick={() => { onScreenshotTook(null) }}
+                onClick={() => { handleTakeScreenshot() }}
                 className="p-1 w-10 h-10 rounded-md border-transparent flex justify-end items-end text-zinc-400 hover:text-zinc-100 transition-colors"
                 style={{
                     backgroundImage: `url(${screenshotImg})`,
