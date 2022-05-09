@@ -13,7 +13,7 @@ const transport = nodemailer.createTransport({
 export class NodemailerMailAdapter implements MailAdapter {
     async sendMail({ subject, body }: SendMailData) {
         await transport.sendMail({
-            from: 'Equipe Boladona <brabodemai@topzera.com>',
+            from: 'Equipe Boladona <brabodemais@topzera.com>',
             to: 'Yago Russo <yagrrusso@gmail.com>',
             subject: subject,
             html: body
